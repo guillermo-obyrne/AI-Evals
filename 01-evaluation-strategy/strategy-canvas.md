@@ -7,13 +7,13 @@
 
 ## 1. Product Strategy, The Context
 
-- **Target user:** _…_
-- **Key use case:** _…_
-- **Value proposition:** _…_
+- **Target user:** VP-level strategists and product leaders at Fortune 500 companies.
+- **Key use case:** Turning a natural-language request (e.g. "compare Competitor X and Y's enterprise pricing" or "give me a digest of recent reviews for Competitor Z") directly into a market insight — no forms to fill, no report to build by hand.
+- **Value proposition:** Reliable, verified market intelligence on other enterprises without hours of manual research, analysis, and prep — enabling faster, more accurate decisions in high-stakes environments.
 
 ## 2. Measurements, The Execution
 
-- **User promise.** _For [user], [product] promises to [outcome] so that [business value]._
+- **User promise.** _For VP-level strategists and product leaders at Fortune 500 companies, Ascend IQ promises to turn natural-language market intelligence requests into reliable, verified competitive insight, so that leaders make faster, more accurate decisions in high-stakes environments._
 - **Top 3 trust metrics:**
   - **_Metric 1_**, _definition / measurable signal_
   - **_Metric 2_**, _definition / measurable signal_
