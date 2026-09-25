@@ -22,13 +22,15 @@
 
 ## 3. Strategic Trade-Offs, The Cost
 
-### Trade-off 1 · _Metric A ↔ Metric B_
+### Trade-off 1 · _Hallucination-free traceability ↔ Latency_
 
-_We prioritize A over B because … (business justification)._
+_We prioritize low hallucination over latency because our product is verified intelligence for high-stakes decisions; a wrong or unsourced value put in front of a client's leadership can cost a $50k+ contract and our "verified" brand, while a slower answer only costs convenience._
 
-### Trade-off 2 · _Metric C ↔ Metric D_
+### Trade-off 2 · _Robustness (declining/flagging gaps) ↔ Coverage (answering everything asked)_
 
-_We prioritize C over D because … (business justification)._
+_We prioritize robustness over raw coverage because a wrongly declined or gap-flagged answer costs a VP a moment, while a confident fabrication in front of their leadership can cost the account. Wrongly declined queries are also highly actionable: each one identifies data to add to our retrieval system, turning a "miss" into a roadmap signal — coverage we can recover; a fabricated answer trusted by a client we usually can't._
+
+_Taken together, hallucination rate and robustness measure the two halves of the same question: whether a VP can trust the whole answer they got, and whether the system fails safely on the ones it can't answer._
 
 ---
 _Generated from the AI Evaluation Strategy Canvas, M1 lab tool, AI Evals Certification._
