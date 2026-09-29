@@ -42,6 +42,7 @@ Rules:
 ## Eval setup, dataset name + judge model/family
 
 - **Dataset:** `ascend-iq-starter-v1` (20 rows, `01-evaluation-strategy/starter-dataset.csv`), generated via the cold-start prompt below.
+- **Harness notebook:** [`eval-harness-poc-v1.ipynb`](./eval-harness-poc-v1.ipynb) — v1 proof of concept, runs Version A vs. B on a single question and judges against the golden-set criteria below; traced to the LangSmith project `ascend-iq-m1-poc`. v2 will loop it over the full CSV.
 - **Generator model:** `claude-sonnet-5` — produces Version A and Version B answers for each dataset row.
 - **Judge model:** `gemini-3.6-flash` — a different model family than the generator, per the self-preference-bias rule. Scores each Version A/B answer pair on the three trust metrics from the Strategy Canvas (traceability, and flags any unsourced/mismatched claim; robustness on the edge-case rows) plus an overall preference verdict.
 
