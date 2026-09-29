@@ -43,7 +43,21 @@ _e.g. dataset `Module1Output`, Conciseness LLM-as-a-Judge, judge from a differen
 
 ## Cold-start, the prompt you used to seed a starter dataset
 
-_Paste the prompt you gave ChatGPT to generate ~20 example rows._
+```
+Generate 20 realistic questions that a VP-level strategist or product leader at a Fortune
+500 company might ask a competitive-intelligence assistant. Cover a mix of:
+- Direct pricing/tier comparisons between two named competitors (~6 questions)
+- Review/sentiment digests for a single competitor's recent product or release (~6 questions)
+- Positioning/differentiation questions ("how does X compare to Y on enterprise security") (~4 questions)
+- Edge cases: a question about a company with little/no public data, an ambiguous or
+  compound question, and a request outside competitive intel entirely (e.g. legal advice)
+  (~4 questions)
+
+For each row, output: the question, 2-3 fabricated but realistic "source snippets" (e.g. a
+pricing page excerpt, a review quote) it should be answered from, and the correct
+answer/verdict grounded only in those snippets. Use fictional company names (Competitor A,
+B, C...) to avoid real-world factual claims.
+```
 
 ## Your definition of good vs bad (golden-set criteria) — the graded part, write your own
 
