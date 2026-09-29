@@ -12,8 +12,8 @@ This is a **template repo**. Click **Use this template → Create a new reposito
 
 | Module | Artifact | Status | File |
 |---|---|---|---|
-| M1 | **Evaluation Strategy Canvas** | ☐ | `01-evaluation-strategy/strategy-canvas.md` |
-| M1 | **Eval harness proof** (links + screenshots) | ☐ | `01-evaluation-strategy/eval-harness-proof.md` |
+| M1 | **Evaluation Strategy Canvas** | ☑ | `01-evaluation-strategy/strategy-canvas.md` |
+| M1 | **Eval harness proof** (links + screenshots) | ☑ | `01-evaluation-strategy/eval-harness-proof.md` |
 | M2 | **Failure audit log** | ☐ | `02-failure-discovery/audit-log.md` |
 | M2 | **Failure Taxonomy** | ☐ | `02-failure-discovery/failure-taxonomy.md` |
 | M3 | **Runnable eval suite** (results) | ☐ | `03-eval-suites/lab-1-eval-suite.md` |
@@ -76,7 +76,12 @@ ai-evals/
 ├── README.md                         ← this dashboard
 ├── 01-evaluation-strategy/           ← Module 1
 │   ├── strategy-canvas.md            from the Strategy Canvas tool
-│   └── eval-harness-proof.md         from the first eval lab
+│   ├── eval-harness-proof.md         from the first eval lab
+│   ├── starter-dataset.csv           20-row cold-started dataset
+│   ├── eval-harness-poc-v1.ipynb     harness POC — single question
+│   ├── eval-harness-poc-v2.ipynb     harness — loops the full CSV
+│   ├── eval-results-v2.csv           per-row winner + gate results, all 20 rows
+│   └── screenshots/                  eval setup + run proof
 ├── 02-failure-discovery/             ← Module 2
 │   ├── audit-log.md                  scored audit of real outputs
 │   └── failure-taxonomy.md           prioritized failure modes

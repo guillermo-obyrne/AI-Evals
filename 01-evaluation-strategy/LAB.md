@@ -41,11 +41,11 @@ may use their own real LLM feature instead — encourage it, but keep one consis
 
 Confirm (ask, don't assume):
 
-- [ ] Their forked `ai-evals` repo is open in this assistant.
-- [ ] A LangSmith account (free Developer tier) **or** promptfoo (local fallback) is ready, plus a model
+- [x] Their forked `ai-evals` repo is open in this assistant.
+- [x] A LangSmith account (free Developer tier) **or** promptfoo (local fallback) is ready, plus a model
       API key with a few dollars of credit. If IT blocks LangSmith, they can follow the instructor demo
       and still complete the written artifacts.
-- [ ] `strategy-canvas.md` and `eval-harness-proof.md` exist (create from the template shape if not).
+- [x] `strategy-canvas.md` and `eval-harness-proof.md` exist (create from the template shape if not).
 
 ---
 
@@ -122,9 +122,9 @@ the ship/hold call later instead of deferring to "the model seems fine."
 
 ## Done-check (verify before saying "complete")
 
-- [ ] `strategy-canvas.md`: product context, user promise, 3 trust metrics with measurable signals, 2 trade-offs — in the learner's words.
-- [ ] `eval-harness-proof.md`: two prompt versions, dataset + judge (different family), cold-start prompt, the learner's own good/bad definition, and eval proof (result + screenshots or a followed-demo note).
-- [ ] Both files committed and pushed.
+- [x] `strategy-canvas.md`: product context, user promise, 3 trust metrics with measurable signals, 2 trade-offs — in the learner's words.
+- [x] `eval-harness-proof.md`: two prompt versions, dataset + judge (different family), cold-start prompt, the learner's own good/bad definition, and eval proof (result + screenshots or a followed-demo note).
+- [x] Both files committed and pushed.
 
 **Debrief (post in `#ai-evals-cohort`):** the one trust metric you'll defend hardest, and why it beats the
 obvious "accuracy".
