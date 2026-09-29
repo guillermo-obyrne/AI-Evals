@@ -83,7 +83,25 @@ Resulting 20-row dataset: [`starter-dataset.csv`](./starter-dataset.csv) (column
 - **N4.** A confident answer when the retrieved context is empty or irrelevant.
 - **N5.** Hedging, refusing, or flagging "missing data" that is actually present in the context — the over-caution failure that breaks UX Trust.
 
+## Result — v2 run, full 20-row dataset
+
+**Win rate:** Version A (Concise) won **8/20 (40%)**, Version B (Narrative) won **6/20 (30%)**, tied on **6/20 (30%)**.
+
+**G1–G4 all-pass rate:** identical for both — **A: 15/20 (75%)**, **B: 15/20 (75%)** — but the two versions fail in different, characteristic ways:
+
+| | Most common failure | What that means |
+|---|---|---|
+| **Version A (Concise)** | G4 (gaps named) — 4 of its 5 failures | The bulleted format sometimes states a fact confidently without flagging that part of the question was actually unanswerable from the retrieved context. |
+| **Version B (Narrative)** | G1 (grounded) — 5 of its 5 failures | The prose format is more prone to unsupported inference (N2) — connective narrative language occasionally states a conclusion the cited sources don't fully support. |
+
+**By category:** A won clearly on `pricing_comparison` (4–2); `review_digest` and `positioning` were close/tied; edge cases split evenly with no outright losses for either version.
+
+**Winner overall: Version A (Concise), on points** — its failure mode (occasionally not flagging a gap) is real but survivable in real use if paired with a stricter G4 check downstream; Version B's failure mode (stating an inference as fact) is the more dangerous one given the hallucination trade-off from the Strategy Canvas, since it's the failure that could put a wrong claim in front of a client's leadership.
+
+**Known parsing limitation:** the `a_violations`/`b_violations` columns in `eval-results-v2.csv` are truncated to `"N"` instead of the full code (e.g. `N2`, `N1, N2`) — the regex used to parse them (`[A-Za-z,]+`) doesn't include digits. This doesn't affect the `winner` or `*_pass_all` columns (parsed from `PASS`/`FAIL`, letters only), only the specific violation-code column; the exact codes are still recoverable from each row's `raw_verdict` text. Worth fixing the regex before using this harness beyond a POC.
+
 ## Screenshots, links or repo paths (optional if you followed the demo)
 
 - **v1 run (single question, setup + verdict):** [`screenshots/eval-harness-poc-v1-run.jpg`](./screenshots/eval-harness-poc-v1-run.jpg)
-- **v2 run (full 20-row loop) + results CSV:** _pending — v2 run in progress; screenshot and `eval-results-v2.csv` to follow._
+- **v2 run (full 20-row loop):** [`screenshots/eval-harness-poc-v2-run.jpg`](./screenshots/eval-harness-poc-v2-run.jpg)
+- **Full results:** [`eval-results-v2.csv`](./eval-results-v2.csv) (per-row winner, gate pass/fail, and raw judge verdict for all 20 rows)
