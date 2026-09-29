@@ -85,4 +85,5 @@ Resulting 20-row dataset: [`starter-dataset.csv`](./starter-dataset.csv) (column
 
 ## Screenshots, links or repo paths (optional if you followed the demo)
 
-_2 shots: (1) eval setup (dataset + judge), (2) starter rows. Image links, or paths under `01-evaluation-strategy/screenshots/`._
+- **v1 run (single question, setup + verdict):** [`screenshots/eval-harness-poc-v1-run.jpg`](./screenshots/eval-harness-poc-v1-run.jpg)
+- **v2 run (full 20-row loop) + results CSV:** _pending — v2 run in progress; screenshot and `eval-results-v2.csv` to follow._

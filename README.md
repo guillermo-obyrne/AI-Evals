@@ -76,7 +76,11 @@ ai-evals/
 ├── README.md                         ← this dashboard
 ├── 01-evaluation-strategy/           ← Module 1
 │   ├── strategy-canvas.md            from the Strategy Canvas tool
-│   └── eval-harness-proof.md         from the first eval lab
+│   ├── eval-harness-proof.md         from the first eval lab
+│   ├── starter-dataset.csv           20-row cold-started dataset
+│   ├── eval-harness-poc-v1.ipynb     harness POC — single question
+│   ├── eval-harness-poc-v2.ipynb     harness — loops the full CSV
+│   └── screenshots/                  eval setup + run proof
 ├── 02-failure-discovery/             ← Module 2
 │   ├── audit-log.md                  scored audit of real outputs
 │   └── failure-taxonomy.md           prioritized failure modes
