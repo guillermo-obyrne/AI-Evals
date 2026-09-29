@@ -39,7 +39,9 @@ Rules:
 
 ## Eval setup, dataset name + judge model/family
 
-_e.g. dataset `Module1Output`, Conciseness LLM-as-a-Judge, judge from a different model family than the generator (avoids self-preference bias)._
+- **Dataset:** `ascend-iq-starter-v1` (20 rows, `01-evaluation-strategy/starter-dataset.csv`), generated via the cold-start prompt below.
+- **Generator model:** `claude-sonnet-5` — produces Version A and Version B answers for each dataset row.
+- **Judge model:** `gemini-3.6-flash` — a different model family than the generator, per the self-preference-bias rule. Scores each Version A/B answer pair on the three trust metrics from the Strategy Canvas (traceability, and flags any unsourced/mismatched claim; robustness on the edge-case rows) plus an overall preference verdict.
 
 ## Cold-start, the prompt you used to seed a starter dataset
 
@@ -58,6 +60,8 @@ pricing page excerpt, a review quote) it should be answered from, and the correc
 answer/verdict grounded only in those snippets. Use fictional company names (Competitor A,
 B, C...) to avoid real-world factual claims.
 ```
+
+Resulting 20-row dataset: [`starter-dataset.csv`](./starter-dataset.csv) (columns: `id`, `category`, `question`, `source_1`, `source_2`, `source_3`, `correct_answer`). Ready to load into the notebook for the LangSmith eval run.
 
 ## Your definition of good vs bad (golden-set criteria) — the graded part, write your own
 
