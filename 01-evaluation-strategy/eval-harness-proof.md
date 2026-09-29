@@ -67,7 +67,20 @@ Resulting 20-row dataset: [`starter-dataset.csv`](./starter-dataset.csv) (column
 
 ## Your definition of good vs bad (golden-set criteria) — the graded part, write your own
 
-_What makes a summary genuinely good or bad for THIS product? This is the judgment call that's yours — don't copy the example._
+**Good (PASS requires G1–G4):**
+
+- **G1. Grounded** — every factual claim (figure, name, date, price, quote, attribution) appears in the retrieved context, and every conclusion follows from cited facts. *(Hallucination Rate)*
+- **G2. Answer-first** — the first sentence directly answers the question asked, or states that the retrieved data can't support an answer. *(UX Trust)*
+- **G3. Complete** — every part of the question is addressed; a comparison covers both entities on the same dimensions. *(UX Trust / task completion)*
+- **G4. Gaps named** — where the context lacks data the answer needs, the output names what's missing and doesn't fill it in. *(Hallucination Rate / Robustness)*
+
+**Never (any one = FAIL):**
+
+- **N1.** A figure, name, or claim not present in the retrieved context.
+- **N2.** An unsupported inference stated as fact.
+- **N3.** Answering about a different entity, segment, or tier than the one asked about.
+- **N4.** A confident answer when the retrieved context is empty or irrelevant.
+- **N5.** Hedging, refusing, or flagging "missing data" that is actually present in the context — the over-caution failure that breaks UX Trust.
 
 ## Screenshots, links or repo paths (optional if you followed the demo)
 
