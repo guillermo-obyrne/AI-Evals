@@ -36,10 +36,10 @@
 
 ## #1 Risk · Business Impact Statement
 
-> _Template: "This failure matters because [technical error] results in [business consequence]." Name the concrete cost — revenue, churn, legal, or trust — not the bug._
+> This failure matters because Ascend IQ states outdated or unsupported facts, like the $49 Enterprise price that is really $59, as verified intelligence, which results in a Fortune 500 leader repeating a wrong number to their own leadership and putting a $50k+ contract at risk.
 
 ## Defending the Prioritization
 
-- _Why the #1 risk is P0 (severity), independent of how often it happens._
-- _Frequency threshold: ≥3 of 20 = HIGH._
-- _Severity anchored to the trust metrics you chose in the Module 1 Strategy Canvas._
+- Hallucination-free traceability was the #1 trust metric in the Module 1 Strategy Canvas, and the audit shows it is where the product fails most. Both the strategy and the data point to the same place, which is why it is P0.
+- The M1 trade-off already says a confident fabrication can cost the account, while a wrong decline costs a moment. That is why fabricated facts rank above the wrongful SOC2 refusal.
+- Frequency threshold: ≥3 of 20 = HIGH. Hallucination (10/20) is HIGH; the other two failure types (1/20 each) are LOW, so severity, not volume, is what puts them at P1.
