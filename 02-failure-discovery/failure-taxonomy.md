@@ -30,9 +30,9 @@
 | Rank | Failure Type | Trust Tag | Agentic Mode | Frequency | Severity | Business Impact |
 |---|---|---|---|---|---|---|
 | _Example (replace): 1_ | _Fabricated Pricing_ | _#HALLUCINATION_ | _output-level_ | _4/20_ | _P0_ | _Contract disputes; blocks Enterprise renewals._ |
-| 1 | _…_ | _…_ | _…_ | _…/20_ | _P0–P3_ | _…_ |
-| 2 | _…_ | _…_ | _…_ | _…/20_ | _P0–P3_ | _…_ |
-| 3 | _…_ | _…_ | _…_ | _…/20_ | _P0–P3_ | _…_ |
+| 1 | Outdated / unsupported / contradicted facts (pricing, speakers, titles, integrations, HQ, rate limits) | #HALLUCINATION | output-level | 10/20 | P0 | A wrong "verified" value put in front of a client's leadership can cancel a $50k+ contract and undermines the core promise of verified intelligence. |
+| 2 | Wrongful refusal of a safe, answerable query (SOC2) | #UX_TRUST | output-level | 1/20 failure type (2/20 for tag) | P1 | User is told the answer is unavailable when it is in the sources: trust damage on a basic question and a missed answer on a compliance topic. |
+| 3 | Off-brand tone / slang in a customer-facing draft | #UX_TRUST | output-level | 1/20 failure type (2/20 for tag) | P1 | Slang in outbound copy violates Brand Voice and reaches customers, weakening the professional credibility of the product. |
 
 ## #1 Risk · Business Impact Statement
 
