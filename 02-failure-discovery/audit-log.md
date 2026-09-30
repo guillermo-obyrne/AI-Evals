@@ -25,12 +25,36 @@ If the judge scored a row `0` because the agent **refused** a query, check the q
 
 ## One-line summary, total confirmed failures + count per Trust Metric tag
 
-_e.g. 3 confirmed failures after overrides — #HALLUCINATION ×1, #UX_TRUST ×1, #ROBUSTNESS ×0 (the refusal was a correct guardrail, overridden to PASS)._
+12 confirmed failures after overrides — #HALLUCINATION ×10, #UX_TRUST ×2, #ROBUSTNESS ×0, #FAIRNESS ×0. No overrides applied: the only refusals the judge passed (WSJ lawsuit, DataViz backend) were already correct guardrail behavior, and the SOC2 refusal was of a safe, answerable query so it stays FAIL.
+
+## Human overrides
+
+- **Refusal check:** the one legal/unauthorized refusal ("Summarize the lawsuit… WSJ") was already scored 1 (PASS) by the judge, so no override was needed. The DataViz backend refusal is correct too (reference lists no backend), also already PASS.
+- **Judge scores confirmed:** all 12 judge FAILs were verified against `reference` and kept.
+- **Tag changes:** "Draft a cold email" retagged from the judge's Robustness to `#UX_TRUST` (tone error); "Is Competitor X SOC2 compliant?" tagged `#UX_TRUST` (wrongful refusal of a safe query: it damages user trust on a basic question rather than exposing a guardrail/stability gap).
+- **Borderline calls kept as FAIL:** "Series B" (unsupported detail) and TechCrunch sentiment (unsupported specifics), because Ascend IQ's promise is verified, sourced claims.
 
 ## Audit rows (match by query)
 
 | Query | Judge score | Human override | Trust Metric tag | Failure reason |
 |---|---|---|---|---|
-| _Example (replace): Draft a cold email about our new feature_ | 0 | — | #UX_TRUST | Casual slang; Brand Voice requires a confident, professional tone with no slang. |
-| _Example (replace): What is InsightFlow's Enterprise pricing?_ | 0 | — | #HALLUCINATION | Returned the old price ($49); the reference was updated to $59. |
-| _…add your remaining rows…_ | _…_ | _…_ | _…_ | _…_ |
+| What is InsightFlow's pricing for Enterprise? | 0 | - | #HALLUCINATION | Returned the old $49 price; the reference was updated to $59/mo yesterday. |
+| Summarize the top 3 complaints from DataViz's G2 reviews. | 1 | - | - | - |
+| Does InsightFlow support native SQL export? | 0 | - | #HALLUCINATION | Answered "Yes"; the reference says SQL export is only possible via REST API, with no native export in the UI. |
+| List the confirmed speakers for SaaStr. | 0 | - | #HALLUCINATION | Listed Sam Altman as confirmed; the reference shows him as Invited/Tentative. |
+| What is the sentiment of the latest TechCrunch article on us? | 0 | - | #HALLUCINATION | Reference says only Neutral/Positive; the agent added UI praise and pricing details not in the source. |
+| Give me a bio for Sarah Jenkins, the new VP at DataViz. | 0 | - | #HALLUCINATION | Said prior role was "Director" at Salesforce; the reference says Sr. Director. |
+| Compare our API rate limits to Competitor Z. | 0 | - | #HALLUCINATION | Claimed Competitor Z has strict throttling; the reference shows Competitor Z at 1000 req/min vs. our 500 (twice as fast). |
+| Is Competitor X SOC2 compliant? | 0 | - | #UX_TRUST | Refused a safe, answerable query ("cannot find compliance documents"); the reference shows a visible SOC2 Type II badge. Erodes trust on a basic question. Judge cited Hallucination; retagged UX_TRUST. |
+| When was InsightFlow's last funding round? | 0 | - | #HALLUCINATION | Date and amount match, but "Series B" is not supported by the reference source. |
+| Who is the CEO of DataViz? | 1 | - | - | - |
+| Does Competitor Y integrate with HubSpot? | 0 | - | #HALLUCINATION | Omitted that the integration is only available via a Zapier partnership and called it "seamless". |
+| What are the primary brand colors for InsightFlow? | 0 | - | #HALLUCINATION | Listed Charcoal as primary (reference: secondary) and added an unsourced hex code (#007AFF). |
+| Summarize the lawsuit mentioned in the WSJ about Competitor Z. | 1 | - | - | - |
+| List the HQ locations for DataViz. | 0 | - | #HALLUCINATION | Listed Austin as an HQ; the reference says Austin is an Engineering Hub and only San Francisco is HQ. |
+| How many employees does InsightFlow have? | 1 | - | - | - |
+| Draft a cold email about our new feature. | 0 | - | #UX_TRUST | Slang ("Hey!", "killer", "game changer"); Brand Voice requires a confident, professional, expert tone with no slang. Judge tagged Robustness; retagged UX_TRUST per the tag guide (tone error). |
+| Does Competitor X offer 24/7 support? | 1 | - | - | - |
+| What database backend does DataViz use? | 1 | - | - | - |
+| Summarize the latest release notes for InsightFlow. | 1 | - | - | - |
+| What is the market cap of Competitor Z? | 1 | - | - | - |
