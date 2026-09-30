@@ -26,4 +26,6 @@
 
 ## What I'd ship next
 
-_Pending: your pick (Layer 1 rule / Layer 2 routing / Layer 3 rubric) and one sentence on why._
+**Pick: a Layer 1 rule.** Replace the naive "does the figure appear anywhere in the reference" check with a deterministic assertion that any quoted price matches the *current* price (`$59`) and flags the superseded one (`$49`).
+
+**Why:** it's the cheapest change, and it makes a stale price show up before the judge runs. That makes it a good pairing with Layer 3. Layer 1 handles known, pattern-shaped facts like price at near-zero cost. The judge stays in place to catch the semantic failures a rule can't anticipate.
