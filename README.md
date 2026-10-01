@@ -18,7 +18,7 @@ This is a **template repo**. Click **Use this template → Create a new reposito
 | M2 | **Failure Taxonomy** | ☑ | `02-failure-discovery/failure-taxonomy.md` |
 | M3 | **Runnable eval suite** (results) | ☑ | `03-eval-suites/lab-1-eval-suite.md` |
 | M3 | **Trajectory eval** (scorecard) | ☑ | `03-eval-suites/lab-1b-trajectory.md` |
-| M3 | **Judge calibration** (κ) | ☐ | `03-eval-suites/lab-judge-calibration.md` |
+| M3 | **Judge calibration** (κ) | ☑ | `03-eval-suites/lab-judge-calibration.md` |
 | M3 | **Eval Spec** (5-part spec + audience messages) | ☑ | `03-eval-suites/lab-2-eval-spec.md` |
 | M4 | **Eval gate map** (severity × placement) | ☐ | `04-eval-gates/lab-1-gate-map.md` |
 | M4 | **CI gate policy** (PR #218 replay) | ☐ | `04-eval-gates/lab-ci-gate-policy.md` |
