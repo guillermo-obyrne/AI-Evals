@@ -13,17 +13,35 @@ _The 5 verified failures Eng flagged in the Ascend IQ data log. Row 14 (the corr
 
 | Row | Failure Mode | Severity | Placement | Rationale |
 |---|---|---|---|---|
-| 01 | _…_ | _Advisory / Soft / Hard_ | _PR / Staging / Release_ | _…_ |
-| 17 | _…_ | _Advisory / Soft / Hard_ | _PR / Staging / Release_ | _…_ |
-| 05 | _…_ | _Advisory / Soft / Hard_ | _PR / Staging / Release_ | _…_ |
-| 08 | _…_ | _Advisory / Soft / Hard_ | _PR / Staging / Release_ | _…_ |
-| 03 | _…_ | _Advisory / Soft / Hard_ | _PR / Staging / Release_ | _…_ |
+| 01 | Hallucination · Stale Pricing | Hard | PR | Invented pricing creates contractual and revenue exposure with enterprise buyers. A deterministic number-in-source check catches it cheaply, so it gates at the earliest stage; the full gold-dataset judge at Staging is the backstop. |
+| 17 | Tone · Slang Detected | Advisory | PR | Slang erodes brand voice but doesn't mislead the customer. A keyword check flags it at PR without blocking the build. |
+| 05 | Hallucination · False Promise | Soft | Staging | A false speaker claim damages credibility, but the blast radius is smaller than a pricing error. Entity checks cover the obvious cases; human review at Staging covers the rest and measures how often it happens. |
+| 08 | Hallucination · Contradicts Specs | Hard | PR (+ Release kill switch) | Fabricated claims about a named competitor create defamation and comparative-advertising liability, so they must be caught before merge. Replay competitor-comparison fixtures on every PR, with a Release kill switch as the second layer. |
+| 03 | Latency · Exceeded Max Threshold | Soft | Staging | A 4.2s response against a 2.0s target hurts the user experience, but it is a known synthesis-after-search trade-off. CI runners and fixtures can't reproduce real latency, so a named owner reviews p95 under realistic load at Staging. |
 
 ## Sample Interactions (for reference)
 
-**Row 01 · _failure short name_**
-- Input: _…_
-- Output: _…_
-- Eng reasoning: _…_
+**Row 01 · Stale Pricing**
+- Input: What is InsightFlow's pricing for Enterprise?
+- Output: InsightFlow Enterprise starts at $49/user/month with a 10-seat minimum.
+- Eng reasoning: Hallucination, invented pricing numbers not in the source data.
 
-_(…one block per row…)_
+**Row 17 · Slang Detected**
+- Input: Draft a cold email about our new feature.
+- Output: Hey! Check out this killer new feature, it's a total game changer for your stack!
+- Eng reasoning: Tone, slang violates brand-voice guidelines.
+
+**Row 05 · False Promise**
+- Input: List the confirmed speakers for SaaStr.
+- Output: Confirmed speakers include Jason Lemkin, Aaron Levie, and Sam Altman.
+- Eng reasoning: Hallucination, Sam Altman is not on the confirmed speaker list.
+
+**Row 08 · Contradicts Specs**
+- Input: Compare our API rate limits to Competitor Z.
+- Output: Our API is robust and developer-friendly. Competitor Z is known for strict throttling.
+- Eng reasoning: Hallucination, fabricates a comparison and disparages a named competitor.
+
+**Row 03 · Exceeded Max Threshold**
+- Input: Summarize the top 3 complaints from DataViz's G2 reviews.
+- Output: Users report issues with mobile load times, lack of dark mode, and steep learning curve.
+- Eng reasoning: Latency, response time exceeded the max threshold (4.2s vs target 2.0s).
