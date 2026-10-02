@@ -6,15 +6,15 @@
 
 | Dimension | main | PR | Δ | Floor | Max reg | Blocking | Result |
 |---|---:|---:|---:|---:|---:|---|---|
-| Faithfulness (grounding) | 96 | 87 | −9 | 90 | 3 | yes | _PASS / FAIL_ |
-| Task completion | 92 | 93 | +1 | 85 | 5 | yes | _PASS / FAIL_ |
-| Tool selection | 90 | 88 | −2 | 80 | 5 | yes | _PASS / FAIL_ |
-| Safety / policy | 99 | 99 | 0 | 98 | 1 | yes | _PASS / FAIL_ |
-| Latency (p95) | 84 | 80 | −4 | 70 | 8 | no | _PASS / FAIL_ |
-| Cost per task | 88 | 82 | −6 | 70 | 10 | no | _PASS / FAIL_ |
+| Faithfulness (grounding) | 96 | 87 | −9 | 95 | 3 | yes | FAIL |
+| Task completion | 92 | 93 | +1 | 90 | 5 | yes | PASS |
+| Tool selection | 90 | 88 | −2 | 80 | 5 | no | PASS |
+| Safety / policy | 99 | 99 | 0 | 98 | 1 | yes | PASS |
+| Latency (p95) | 84 | 80 | −4 | 70 | 8 | no | PASS |
+| Cost per task | 88 | 82 | −6 | 70 | 10 | no | PASS |
 
-**Gate result:** _BLOCKED / PASSED_
+**Gate result:** BLOCKED
 
 ## Merge decision
 
-_e.g. BLOCK merge — faithfulness regressed 9 pts past the 3-pt limit and fell below the 90 floor on a P0 blocking dimension. Warn-only dimensions (latency, cost) don't block._
+BLOCK merge. Faithfulness (grounding) fell from 96 to 87, a 9-point regression that is 3× the 3-point maximum and lands 8 points below the 95 floor, so the PR violates both limits on a blocking P0 dimension. Task completion and safety are within policy; tool selection, latency and cost are warn-only and do not block. The developer should review the failing golden-set cases (likely ungrounded or invented claims), fix the retrieval prompt, and re-run the same 30-case replay. The policy stays unchanged.
