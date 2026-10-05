@@ -4,14 +4,16 @@
 >
 > Fill this with the **Ship/Hold Memo Builder**, then **Copy markdown** and paste it over this file. The headings below mirror the tool's output exactly.
 
-> **Decision:** 🚀 SHIP _(or 🛑 HOLD)_
+> **Decision:** 🛑 HOLD
 
-**To:** _[CPO] · cc Eng Lead · Trust & Safety_
-**From:** _[Your Name] · AI Evals Cohort · [Date]_
+**To:** [CPO] · cc Eng Lead · Trust & Safety
+**From:** Guillermo O'Byrne · AI Evals Cohort · October 5, 2026
 
 ## The Answer
 
-_First sentence = the recommendation and the business reason. Do not bury it._
+**Hold Ascend IQ for one sprint:** it can still present a stale price, like $49 instead of $59, as verified intelligence, and one screenshot of that can tarnish the brand and put $50k+ contracts at risk faster than a staged rollout can contain it.
+
+We ship when three conditions are met: 0 stale or contradicted prices rendered on a golden set of at least 30 cases (including the $49 vs $59 case), a judge calibrated to κ ≥ 0.60 on the real judge, and a false-block rate of 5% or less on correct answers. A go/no-go review at the end of the sprint decides: if the gate passes, we begin the staged 5% → 25% → 100% rollout; if it doesn't, we escalate rather than ship.
 
 ## The Arguments
 
