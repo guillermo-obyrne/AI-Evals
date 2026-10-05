@@ -23,8 +23,8 @@ This is a **template repo**. Click **Use this template → Create a new reposito
 | M4 | **Eval gate map** (severity × placement) | ☑ | `04-eval-gates/lab-1-gate-map.md` |
 | M4 | **CI gate policy** (PR #218 replay) | ☑ | `04-eval-gates/lab-ci-gate-policy.md` |
 | M4 | **Launch strategy** (release criteria + CI policy + mitigation) | ☑ | `04-eval-gates/lab-2-launch-strategy.md` |
-| M5 | **Coverage matrix** | ☐ | `05-scale/lab-1-coverage-matrix.md` |
-| M5 | **Eval budget** | ☐ | `05-scale/lab-2-budget-crisis.md` |
+| M5 | **Coverage matrix** | ☑ | `05-scale/lab-1-coverage-matrix.md` |
+| M5 | **Eval budget** | ☑ | `05-scale/lab-2-budget-crisis.md` |
 | M6 | **Ship / Hold memo** | ☐ | `06-culture/lab-1-ship-hold-memo.md` |
 | M6 | **Final pitch deck** (generated HTML) | ☐ | `06-culture/lab-2-final-pitch.html` |
 

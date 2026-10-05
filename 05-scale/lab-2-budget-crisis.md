@@ -22,6 +22,8 @@ _Reference L3 costs: Hallucination $85K · Context $70K · Attribution $65K · B
 
 _Third L3 slot unused: the only remaining candidate that fits under the cap is Latency ($25K) on a P3 risk, which is already covered by the CI cost and latency checks and the Staging load test. Context ($70K) or Bias ($55K) at L3 would take the total past $200K._
 
+_Source Attribution at L3: a continuous automated deterministic check on every response. It verifies that a citation is present and that the stated value is found in the cited source._
+
 ## Fallback methods (non-Level 3 items)
 
 ### L2 · Context Specificity (UX Trust · P1)
@@ -34,4 +36,4 @@ _Third L3 slot unused: the only remaining candidate that fits under the cap is L
 
 ### L1 · Cost Overruns (Latency · P3)
 - **Method:** Infrastructure-level cost tracking with threshold alerting, plus spot-checks on deploy and the existing M4 CI "Cost per task" warn-only dimension (floor 70, max regression 10).
-- **Why this fallback is defensible:** It is the lowest-severity risk and runs on infrastructure we already have. **Upgrade trigger:** move to L2 if spot-checks show a 25% or greater cost increase in 10% or more of sampled calls.
+- **Why this fallback is defensible:** It is the lowest-severity risk and runs on infrastructure we already have. **Upgrade trigger:** move to L2 if spot-checks show a 25% or greater cost increase over baseline in 10% or more of sampled calls. **Baseline:** the median cost per task for each query class (simple look-up vs. multi-competitor comparison, as in M1), measured by running the golden-set queries live on `main` in internal testing before each release and re-baselined at every release. The CI replay makes no live model calls, so it can't supply cost figures.
