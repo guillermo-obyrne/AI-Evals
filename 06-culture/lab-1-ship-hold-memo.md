@@ -32,8 +32,13 @@ The Hard gate requires 0% stale or contradicted claims rendered, but the golden 
 ## Evidence · Trust Metrics
 
 ```
-- Metric: result (Gate: bar) PASS/FAIL · Source
-- … cite exact numbers from M2–M5 (hallucination rate vs gate, factual grounding %, bias coverage %, p95 latency)
+- Hallucination failures in audit: 10/20 rows (Gate: 0% stale/contradicted claims rendered) FAIL · M2 audit-log, M4 §4.0
+- Judge Cohen's κ, real judge: 0.33 (Gate: ≥ 0.60) FAIL · M3 judge-calibration
+- Golden pricing set: not built (Gate: ≥ 30 cases incl. $49 vs $59) NOT MET · M3 eval spec, M4 CI policy
+- Pricing gate on golden set: not run (Gate: 0 stale prices; false-block ≤ 5%) NOT MEASURED · M3 eval spec, M4 §4.0
+- p95 latency: not measured (Gate: ≤ 4.0s, target 2.0s) NOT MEASURED · M4 §4.0
+- Bias coverage: no measured % (accepted risk; 0/20 fairness failures in audit) NO GATE FAILURE · M2 audit-log, M5
+- Eval budget: $163,750 of $200K cap, 2 of 3 L3 slots used (Gate: ≤ $200K) PASS · M5 Lab 2
 ```
 
 ## Business Risk
