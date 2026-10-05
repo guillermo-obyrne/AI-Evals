@@ -17,17 +17,17 @@ We ship when three conditions are met: 0 stale or contradicted prices rendered o
 
 ## The Arguments
 
-### 1. _Argument pillar title_
+### 1. Trust: the failure we have is the promise we sell
 
-_…_
+Ascend IQ promises verified market intelligence, and hallucination is where it fails most: 10 of the 20 audited rows (our P0). A wrong value presented as verified, like $49 instead of $59, breaks the one thing that differentiates the product. A VP who repeats that number to their own leadership will not trust the next answer.
 
-### 2. _Argument pillar title_
+### 2. Business risk: a staged rollout can't contain a screenshot
 
-_…_
+The exposure is $50k+ contracts and the brand. A wrong price shown to even 5% of traffic can be screenshotted and shared in an afternoon, so limiting the audience limits the cost of a miss far less than it does for a slow or clunky answer. Launching a day late costs a window; launching with a visible error can cost the accounts the launch is meant to win.
 
-### 3. _Argument pillar title_
+### 3. Eval readiness: the gate and the judge are not proven yet
 
-_…_
+The Hard gate requires 0% stale or contradicted claims rendered, but the golden pricing set (at least 30 cases, including $49 vs $59) is not yet built and the deterministic pricing gate has not run against it. The real judge scored Cohen's κ 0.33 against a 0.60 bar; the later 1.00 came from a stand-in judge and does not count. Both are concrete, one-sprint fixes, which is why this is a Hold and not an open-ended delay.
 
 ## Evidence · Trust Metrics
 
