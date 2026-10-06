@@ -43,12 +43,20 @@ The Hard gate requires 0% stale or contradicted claims rendered, but the golden 
 
 ## Business Risk
 
-_Quantified SHIP-path vs HOLD-path risk (revenue, churn, competitive window)._
+**SHIP path:** In the M2 audit, 10 of 20 sampled responses (50%) contained a stale, unsupported or contradicted fact, and the evals that would catch it are incomplete: the golden pricing set is not built, the pricing gate has not run, and the real judge is uncalibrated (κ 0.33). Without changes, the accounts pitched for the staged rollout would be exposed to that failure rate with no reliable check in front of them. Each is a potential $50k+ contract.
+
+**HOLD path:** A one-sprint delay. Holding protects the same $50k+ contracts from exposure to an unfixed failure. It also protects the brand: AI failures become memes and spread like wildfire, and the reputation damage could be greater than the cost of the lost contracts. We are not quantifying lost revenue from the delay, because we have no measured figure for it.
 
 ## Next Step · Decision Needed
 
-_A specific decision request with a deadline — e.g. "Approve the Hold rollback by Friday to keep the Q3 launch window."_
+**Approve a one-sprint Hold by Friday, October 9, 2026.** The go/no-go review is held two weeks after approval: October 23, 2026 if approved on time (the date moves if approval comes later). At that review, the rollout begins only if all three ship conditions are met: 0 stale or contradicted prices on the golden set of at least 30 cases, judge κ ≥ 0.60, and a false-block rate of 5% or less. If they are not met, we escalate rather than ship.
 
 ## Reflection
 
-_What defining "good enough" forced you to confront._
+Defining "good enough" forced three things on me.
+
+**Hard metrics over ratings.** User ratings are tempting, but they arrive too late and are noisy. I first planned to track UX trust, then moved to Robustness because it can be measured directly before release.
+
+**Floors and regressions work as a ratchet.** Setting a floor and a maximum regression for each metric is not trivial and takes experience. Once set, they act as a ratchet: the floor stops quality eroding across PRs, and the ideal score only moves up over time. The floor should only be raised when it is held, backed by evidence and approved. Otherwise it can damage speed by holding back releases. A tight setup can also be noisy when the test set is small.
+
+**An added evaluator does not automatically improve the product.** It needs calibration. The analogy that made it click was a trainee grader: the human is the master evaluator, and the trainee cannot be trusted until their grades are checked against the master's. Working through TPR and TNR took the most thought, and the real judge's κ of 0.33 is why this memo says Hold.
