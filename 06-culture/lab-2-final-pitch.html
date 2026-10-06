@@ -1,22 +1,261 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Final Pitch Deck — placeholder</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#07162C; color:#e8eefc; margin:0; display:grid; place-items:center; min-height:100vh; }
-    .card { max-width:640px; padding:40px; line-height:1.6; }
-    h1 { font-size:22px; margin:0 0 12px; }
-    code { background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px; font-size:13px; }
-    a { color:#8ec5ff; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ascend IQ · Ship/Hold Pitch</title>
+<style>
+  :root {
+    --navy: #171f97;
+    --blue: #0024e7;
+    --cream: #fcf9f1;
+    --white: #ffffff;
+    --tile: #f4f4f2;
+    --ink: #17181c;
+    --grey: #5f6168;
+    --line: #e4e1d8;
+    --fail: #b3261e;
+    --warn: #8a5a00;
+    --pass: #1b6e3c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #e9e7e0; font-family: Inter, "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif; color: var(--ink); }
+  .stage { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; }
+  .deck { width: 1280px; height: 720px; position: relative; transform-origin: center center; }
+  .slide { position: absolute; inset: 0; background: var(--white); display: none; flex-direction: column; padding: 56px 72px 48px; overflow: hidden; }
+  .slide.active { display: flex; }
+  .slide.cream { background: var(--cream); }
+  .slide.navy { background: var(--navy); color: var(--white); }
+  .kicker { font-size: 15px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+  .navy .kicker { color: #aab4ff; }
+  h1 { font-size: 54px; line-height: 1.08; font-weight: 700; letter-spacing: -.02em; }
+  h2 { font-size: 36px; line-height: 1.15; font-weight: 700; letter-spacing: -.015em; margin-bottom: 26px; max-width: 1050px; }
+  h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  p, li { font-size: 18px; line-height: 1.5; color: var(--grey); }
+  .navy p, .navy li { color: #dfe3ff; }
+  strong { color: var(--ink); }
+  .navy strong { color: var(--white); }
+  .em { color: var(--blue); font-weight: 700; }
+  .grid { display: grid; gap: 20px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .cream .card { background: var(--white); }
+  .tile { width: 40px; height: 40px; border-radius: 10px; background: var(--tile); display: grid; place-items: center; margin-bottom: 12px; }
+  .tile svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .big { font-size: 56px; font-weight: 700; letter-spacing: -.02em; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  th { text-align: left; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--grey); font-weight: 600; padding: 8px 12px; border-bottom: 2px solid var(--ink); }
+  td { padding: 11px 12px; border-bottom: 1px solid var(--line); color: var(--ink); vertical-align: top; line-height: 1.4; }
+  td.muted { color: var(--grey); }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .05em; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .b-fail { background: #fbe9e7; color: var(--fail); }
+  .b-warn { background: #fff1d6; color: var(--warn); }
+  .b-pass { background: #e3f3ea; color: var(--pass); }
+  .b-blue { background: #e6eaff; color: var(--blue); }
+  .note { font-size: 15px; color: var(--grey); border-left: 3px solid var(--blue); padding: 6px 0 6px 14px; margin-top: 16px; line-height: 1.45; }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: var(--grey); padding-top: 12px; }
+  .navy .foot { color: #aab4ff; }
+  .pill { display: inline-block; background: var(--blue); color: #fff; font-weight: 700; font-size: 15px; padding: 10px 20px; border-radius: 10px; }
+  .quote { font-size: 24px; line-height: 1.4; font-weight: 600; color: var(--ink); max-width: 980px; }
+  ul { padding-left: 20px; } li { margin-bottom: 6px; }
+  .hint { position: fixed; bottom: 10px; right: 16px; font-size: 12px; color: #77756c; }
+  @media print {
+    html, body { background: #fff; height: auto; }
+    .stage { position: static; display: block; }
+    .deck { transform: none !important; width: auto; height: auto; }
+    .slide { display: flex !important; position: relative; width: 1280px; height: 720px; page-break-after: always; }
+    .hint { display: none; }
+    @page { size: 1280px 720px; margin: 0; }
+  }
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>Replace this file with your generated pitch deck.</h1>
-    <p>This is a placeholder. In <strong>Module 6</strong>, use the <em>Final Pitch Prompt Generator</em> to assemble every M1–M5 artifact plus your Ship/Hold memo into a single prompt, paste it into ChatGPT / Claude / Gemini, and save the returned HTML deck here as <code>06-culture/lab-2-final-pitch.html</code>.</p>
-    <p>Then submit this deck plus your repo URL to the learning platform within 7 days of your cohort ending.</p>
+<div class="stage"><div class="deck" id="deck">
+
+<!-- 1 · THE CALL -->
+<section class="slide navy">
+  <div class="kicker">Ascend IQ · Ship/Hold decision</div>
+  <h1 style="max-width:1000px; margin-bottom:28px;">Hold Ascend IQ for one sprint.</h1>
+  <p style="font-size:24px; line-height:1.45; max-width:1010px; color:#fff;">It can still present a stale price, like $49 instead of $59, as verified intelligence. One screenshot of that can tarnish the brand and put $50k+ contracts at risk faster than a staged rollout can contain it.</p>
+  <div style="margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;">
+    <span class="pill">0 stale prices on a ≥30-case golden set</span>
+    <span class="pill">Judge κ ≥ 0.60</span>
+    <span class="pill">False-block ≤ 5%</span>
   </div>
+  <p style="margin-top:22px; font-size:17px;">Then we begin the staged 5% → 25% → 100% rollout. Go/no-go review: October 23, 2026.</p>
+  <div class="foot"><span>Guillermo O'Byrne · AI Evals Cohort · October 5, 2026</span><span>1 / 8</span></div>
+</section>
+
+<!-- 2 · STRATEGY -->
+<section class="slide">
+  <div class="kicker">M1 · Strategy canvas</div>
+  <h2>We promise verified market intelligence, so trust comes before speed.</h2>
+  <div class="grid g3">
+    <div class="card"><div class="tile"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Hallucination-free traceability</h3><p>Every factual claim is backed by a citation that supports the stated value. Target: drive the defect rate toward zero.</p></div>
+    <div class="card"><div class="tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Latency</h3><p>p95 time to a completed response, tracked separately for look-ups and multi-competitor comparisons.</p></div>
+    <div class="card"><div class="tile"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><h3>Robustness</h3><p>On out-of-scope or ambiguous questions, decline or flag the data gap rather than fabricate.</p></div>
+  </div>
+  <div class="note"><strong>Trade-off we chose:</strong> low hallucination over latency. A wrong value shown to a client's leadership can cost a $50k+ contract; a slower answer only costs convenience. Target user: VP-level strategists and product leaders at Fortune 500 companies.</div>
+  <div class="foot"><span>Source: 01-evaluation-strategy/strategy-canvas.md</span><span>2 / 8</span></div>
+</section>
+
+<!-- 3 · FAILURE TAXONOMY -->
+<section class="slide cream">
+  <div class="kicker">M2 · Failure taxonomy</div>
+  <h2>Hallucination is where Ascend IQ fails most: 10 of 20 audited rows.</h2>
+  <div class="grid g2" style="grid-template-columns: 240px 1fr; align-items:start;">
+    <div class="card"><div class="big">10/20</div><p>audited rows carried a hallucination failure (stale, unsupported or contradicted facts). 12 failures confirmed overall.</p></div>
+    <div class="card" style="padding:8px 14px;">
+      <table>
+        <tr><th>#</th><th>Failure</th><th>Severity</th></tr>
+        <tr><td>1</td><td>Outdated or unsupported facts presented as verified (pricing, speakers, titles, HQ, integrations)</td><td><span class="badge b-fail">P0</span></td></tr>
+        <tr><td>2</td><td>Wrongful refusal of a safe, answerable query (SOC2)</td><td><span class="badge b-warn">P1</span></td></tr>
+        <tr><td>3</td><td>Off-brand slang in a customer-facing draft</td><td><span class="badge b-warn">P1</span></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="note">Example: the agent quoted $49 for the Enterprise plan; the current price is $59. A Fortune 500 leader repeating that number to their own leadership puts a $50k+ contract at risk. The audit is a 20-row sample, not a measured production rate.</div>
+  <div class="foot"><span>Source: 02-failure-discovery/audit-log.md, failure-taxonomy.md</span><span>3 / 8</span></div>
+</section>
+
+<!-- 4 · EVAL SUITE -->
+<section class="slide">
+  <div class="kicker">M3 · Eval suite and judge</div>
+  <h2>Only the LLM judge caught the $49 price, and the judge is not calibrated yet.</h2>
+  <div class="grid g2" style="grid-template-columns: 1.25fr 1fr; align-items:start;">
+    <div class="card" style="padding:8px 14px;">
+      <table>
+        <tr><th>Layer</th><th>On the $49 case</th></tr>
+        <tr><td><strong>1 · Code</strong> (deterministic)</td><td>Missed it: "$49" appears in the reference as the old price</td></tr>
+        <tr><td><strong>2 · Safety</strong> (refusal gate)</td><td>Not designed for pricing accuracy</td></tr>
+        <tr><td><strong>3 · Judge</strong> (LLM)</td><td>Caught it as stale vs. the $59 ground truth</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="big">κ 0.33</div>
+      <p>Cohen's κ for the real judge against a 0.60 bar. It passed 4 answers a human failed and never failed one the human passed. A later 1.00 came from a stand-in judge and does not count.</p>
+    </div>
+  </div>
+  <div class="note"><strong>Next fix:</strong> a Layer 1 rule that checks every quoted price against the <em>current</em> verified record, so a stale price is blocked before the judge runs. The judge stays advisory until its κ is measured.</div>
+  <div class="foot"><span>Source: 03-eval-suites/lab-1-eval-suite.md, lab-2-eval-spec.md, lab-judge-calibration.md</span><span>4 / 8</span></div>
+</section>
+
+<!-- 5 · GATES -->
+<section class="slide cream">
+  <div class="kicker">M4 · Eval gates and launch strategy</div>
+  <h2>The Hard gate is zero stale or contradicted claims rendered.</h2>
+  <div class="grid g2" style="grid-template-columns: 1.4fr 1fr; align-items:start;">
+    <div class="card" style="padding:8px 14px;">
+      <table>
+        <tr><th>Severity</th><th>Metric</th><th>Threshold</th></tr>
+        <tr><td><span class="badge b-fail">HARD</span></td><td>Stale, unsupported or contradicted claims rendered</td><td>= 0%; false-block ≤ 5%</td></tr>
+        <tr><td><span class="badge b-warn">SOFT</span></td><td>Unverified-entity rate</td><td>&lt; 2%</td></tr>
+        <tr><td><span class="badge b-warn">SOFT</span></td><td>p95 latency</td><td>≤ 4.0s (target 2.0s)</td></tr>
+        <tr><td><span class="badge b-blue">ADVISORY</span></td><td>Flagged slang</td><td>≤ 5%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Per-dimension CI gate</h3>
+      <p>Blocking: faithfulness (floor 95), task completion (90), safety (98). Warn-only: tool selection, latency, cost. Replayed on a frozen golden set of at least 30 cases.</p>
+      <h3 style="margin-top:14px;">Staged rollout</h3>
+      <p>5% → 25% → 100%, advancing only while Soft gates hold.</p>
+    </div>
+  </div>
+  <div class="note">A staged rollout limits who sees a miss. It does not stop a screenshot of one wrong price from spreading, which is why the Hard gate has to pass first.</div>
+  <div class="foot"><span>Source: 04-eval-gates/lab-1-gate-map.md, lab-2-launch-strategy.md, lab-ci-gate-policy.md</span><span>5 / 8</span></div>
+</section>
+
+<!-- 6 · BUDGET -->
+<section class="slide">
+  <div class="kicker">M5 · Scale and budget</div>
+  <h2>The eval plan fits the budget: $163,750 of the $200K quarterly cap.</h2>
+  <div class="grid g2" style="grid-template-columns: 1.35fr 1fr; align-items:start;">
+    <div class="card" style="padding:8px 14px;">
+      <table>
+        <tr><th>Ascend IQ failure</th><th>Risk</th><th>Level</th><th>Cost</th></tr>
+        <tr><td>Data Fabrication</td><td><span class="badge b-fail">P0</span></td><td>L3</td><td>$85,000</td></tr>
+        <tr><td>Source Attribution</td><td><span class="badge b-warn">P1</span></td><td>L3</td><td>$65,000</td></tr>
+        <tr><td>Context Specificity</td><td><span class="badge b-warn">P1</span></td><td>L2</td><td>$7,000</td></tr>
+        <tr><td>Data Bias</td><td><span class="badge b-blue">P2</span></td><td>L2</td><td>$5,500</td></tr>
+        <tr><td>Cost Overruns</td><td><span class="badge b-blue">P3</span></td><td>L1</td><td>$1,250</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Portfolio product, not Ascend IQ</h3>
+      <p>The M5 coverage matrix covers <strong>AI-Powered Report Summaries</strong>, a different product in the Ascend Analytics portfolio. It is shown for scale, not as evidence for this launch decision.</p>
+      <p style="margin-top:10px; font-size:15px;">Hallucination ⚠️ · Bias ❌ · Latency ✅ · Toxicity ❌ · Drift ⚠️. Its hallucination method is reused from Ascend IQ and has not been run on that product.</p>
+    </div>
+  </div>
+  <div class="note">2 of 3 Level-3 slots used, $36,250 headroom. Bias is a risk acceptance: 0 of 20 audited rows had a fairness failure.</div>
+  <div class="foot"><span>Source: 05-scale/lab-2-budget-crisis.md, lab-1-coverage-matrix.md</span><span>6 / 8</span></div>
+</section>
+
+<!-- 7 · EVIDENCE -->
+<section class="slide cream">
+  <div class="kicker">Evidence against the gates</div>
+  <h2>Where we stand today: two gates failed and three are not yet measured.</h2>
+  <div class="card" style="padding:8px 14px;">
+    <table>
+      <tr><th>Metric</th><th>Result</th><th>Gate</th><th>Status</th></tr>
+      <tr><td>Hallucination in audit</td><td>10/20 rows</td><td>0% stale or contradicted rendered</td><td><span class="badge b-fail">FAIL</span></td></tr>
+      <tr><td>Judge Cohen's κ (real judge)</td><td>0.33</td><td>≥ 0.60</td><td><span class="badge b-fail">FAIL</span></td></tr>
+      <tr><td>Golden pricing set</td><td>Not built</td><td>≥ 30 cases incl. $49 vs $59</td><td><span class="badge b-warn">NOT MET</span></td></tr>
+      <tr><td>Pricing gate on golden set</td><td>Not run</td><td>0 stale; false-block ≤ 5%</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
+      <tr><td>p95 latency</td><td>Not measured</td><td>≤ 4.0s (target 2.0s)</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
+      <tr><td>Bias</td><td>0/20 fairness failures</td><td>Accepted risk, no gate</td><td><span class="badge b-blue">ACCEPTED</span></td></tr>
+      <tr><td>Eval budget</td><td>$163,750</td><td>≤ $200K</td><td><span class="badge b-pass">PASS</span></td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>Sources: M2 audit-log · M3 judge calibration and spec · M4 release criteria · M5 budget</span><span>7 / 8</span></div>
+</section>
+
+<!-- 8 · THE ASK -->
+<section class="slide navy">
+  <div class="kicker">The ask</div>
+  <h2 style="color:#fff;">Approve a one-sprint Hold by Friday, October 9, 2026.</h2>
+  <div class="grid g2" style="margin-bottom:22px;">
+    <div class="card" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18);">
+      <h3 style="color:#fff;">If we ship now</h3>
+      <p>The accounts pitched for the staged rollout face a 50% sampled failure rate with incomplete evals in front of them. Each is a potential $50k+ contract.</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18);">
+      <h3 style="color:#fff;">If we hold</h3>
+      <p>The same $50k+ contracts are protected. AI failures become memes and spread like wildfire, and the reputation damage could be greater than the contract cost. No lost-revenue figure is claimed for the delay.</p>
+    </div>
+  </div>
+  <p style="font-size:20px; color:#fff;">Go/no-go review two weeks after approval: <strong>October 23, 2026</strong> if approved on time. We start the rollout only if all three ship conditions are met. If not, we escalate rather than ship.</p>
+  <div class="foot"><span>Guillermo O'Byrne · AI Evals Cohort</span><span>8 / 8</span></div>
+</section>
+
+</div></div>
+<div class="hint">← → to navigate · P to print</div>
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var deck = document.getElementById('deck');
+    var i = 0;
+    try { var h = parseInt(location.hash.slice(1), 10); if (h >= 1 && h <= slides.length) i = h - 1; } catch (e) {}
+    function show(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+      try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+    }
+    function fit() {
+      var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+      deck.style.transform = 'scale(' + s + ')';
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+      else if (e.key === 'Home') show(0);
+      else if (e.key === 'End') show(slides.length - 1);
+      else if (e.key === 'p' || e.key === 'P') window.print();
+    });
+    document.addEventListener('click', function (e) { show(e.clientX > window.innerWidth / 2 ? i + 1 : i - 1); });
+    window.addEventListener('resize', fit);
+    fit(); show(i);
+  })();
+</script>
 </body>
 </html>
