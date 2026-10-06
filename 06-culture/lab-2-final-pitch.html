@@ -77,13 +77,13 @@
 <section class="slide navy">
   <div class="kicker">Ascend IQ · Ship/Hold decision</div>
   <h1 style="max-width:1000px; margin-bottom:28px;">Hold Ascend IQ for one sprint.</h1>
-  <p style="font-size:24px; line-height:1.45; max-width:1010px; color:#fff;">It can still present a stale price, like $49 instead of $59, as verified intelligence. One screenshot of that can tarnish the brand and put $50k+ contracts at risk faster than a staged rollout can contain it.</p>
+  <p style="font-size:24px; line-height:1.45; max-width:1010px; color:#fff;">It can still present a stale price, like $49 instead of $59, as verified intelligence. A wrong figure forwarded among executives can tarnish the brand and put $50k+ contracts at risk faster than a staged rollout can contain it.</p>
   <div style="margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;">
-    <span class="pill">0 stale prices on a ≥30-case first regression set</span>
+    <span class="pill">0 stale prices on a 150-case pricing set</span>
     <span class="pill">Judge κ ≥ 0.60</span>
     <span class="pill">False-block ≤ 5%</span>
   </div>
-  <p style="margin-top:22px; font-size:17px;">The sprint ships the pricing-scope gate, which blocks stale prices rather than repairing the model. Then the staged 5% → 25% → 100% rollout begins. Go/no-go review: October 23, 2026.</p>
+  <p style="margin-top:22px; font-size:17px;">The 150-case set is built before any rollout. The sprint ships a pricing-scope gate that blocks stale prices rather than repairing the model. Then the staged rollout begins. Go/no-go review: October 23, 2026.</p>
   <div class="foot"><span>Guillermo O'Byrne · AI Evals Cohort · October 5, 2026</span><span>1 / 8</span></div>
 </section>
 
@@ -115,7 +115,7 @@
       </table>
     </div>
   </div>
-  <div class="note">Example: the agent quoted $49 for the Enterprise plan; the current price is $59. A Fortune 500 leader repeating that number to their own leadership puts a $50k+ contract at risk. The audit is a 20-row sample, not a measured production rate. The Hard gate is 0%, so even the low end of the interval fails it, and $49 vs $59 is a confirmed counterexample.</div>
+  <div class="note">Only 1 of the 10 is a pricing error ($49 vs $59, the P0 contract risk). The rest are other fact types, so at launch any fact type without a verified-record check is withheld or flagged as unverified. The audit is a 20-row sample, not a production rate; even the low end of the interval fails the 0% Hard gate.</div>
   <div class="foot"><span>Source: 02-failure-discovery/audit-log.md, failure-taxonomy.md</span><span>3 / 8</span></div>
 </section>
 
@@ -137,7 +137,7 @@
       <p>Cohen's κ for the real judge against a 0.60 bar. It passed 4 answers a human failed and never failed one the human passed. A later 1.00 came from a stand-in judge and does not count.</p>
     </div>
   </div>
-  <div class="note"><strong>Next fix:</strong> a Layer 1 rule that checks every quoted price against the <em>current</em> verified record, so a stale price is blocked before the judge runs. The judge stays advisory until its κ is measured.</div>
+  <div class="note"><strong>Next fix:</strong> a Layer 1 rule that checks every quoted price against the <em>current</em> verified record, so a stale price is blocked before the judge runs. When it blocks, the VP sees "I couldn't verify this figure, so I left it out," with an analyst follow-up. The judge stays advisory until its κ is measured.</div>
   <div class="foot"><span>Source: 03-eval-suites/lab-1-eval-suite.md, lab-2-eval-spec.md, lab-judge-calibration.md</span><span>4 / 8</span></div>
 </section>
 
@@ -157,11 +157,11 @@
     </div>
     <div class="card">
       <h3>Per-dimension CI gate</h3>
-      <p>Blocking: faithfulness (floor 95), task completion (90), safety (98). Warn-only: tool selection, latency, cost. Replayed on a frozen set of 30+ cases: a floor, not proof (0 failures in 30 supports only a rate under ~10%).</p>
+      <p>Blocking: faithfulness (floor 95), task completion (90), safety (98). Warn-only: tool selection, latency, cost. Replayed on a frozen 150-case set (75 block / 75 pass), built before rollout. 0 failures in 75 bounds each side near 4%.</p>
       <h3 style="margin-top:10px;">Staged rollout</h3>
-      <p>5% → 25% → 100% while Soft gates hold; real cases grow the set toward hundreds.</p>
+      <p>5% → 25% → 100% while Soft gates hold; real cases grow the set toward 500.</p>
       <h3 style="margin-top:10px;">How the sprint gets to 0%</h3>
-      <p>A pricing-scope gate blocks stale prices before render; it blocks, not repairs.</p>
+      <p>A pricing-scope gate blocks stale prices before render. Its added p95 latency is measured; total stays ≤ 4.0s.</p>
     </div>
   </div>
   <div class="note">A staged rollout limits who sees a miss, not whether a screenshot spreads, so the Hard gate passes first.</div>
@@ -200,10 +200,10 @@
   <div class="card" style="padding:8px 14px;">
     <table>
       <tr><th>Metric</th><th>Result</th><th>Gate</th><th>Status</th></tr>
-      <tr><td>Hallucination in audit</td><td>10/20 rows (small sample; rough 95% interval 27%–73%)</td><td>0% stale or contradicted rendered</td><td><span class="badge b-fail">FAIL</span></td></tr>
+      <tr><td>Hallucination in audit</td><td>10/20 rows (95% interval ~27–73%)</td><td>0% stale or contradicted rendered</td><td><span class="badge b-fail">FAIL</span></td></tr>
       <tr><td>Judge Cohen's κ (real judge)</td><td>0.33</td><td>≥ 0.60</td><td><span class="badge b-fail">FAIL</span></td></tr>
-      <tr><td>First golden pricing set</td><td>Not built</td><td>≥ 30 cases incl. $49 vs $59 (a floor, not proof)</td><td><span class="badge b-warn">NOT MET</span></td></tr>
-      <tr><td>Pricing gate on golden set</td><td>Not run</td><td>0 stale; false-block ≤ 5%</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
+      <tr><td>Pricing set</td><td>Not built</td><td>150 cases (75 block / 75 pass)</td><td><span class="badge b-warn">NOT MET</span></td></tr>
+      <tr><td>Pricing gate, 150-case set</td><td>Not run</td><td>0 stale; false-block ≤ 5%</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
       <tr><td>p95 latency</td><td>Not measured</td><td>≤ 4.0s (target 2.0s)</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
       <tr><td>Bias</td><td>0/20 fairness failures</td><td>Accepted risk, no gate</td><td><span class="badge b-blue">ACCEPTED</span></td></tr>
       <tr><td>Planned eval allocation</td><td>$163,750 (plan)</td><td>≤ $200K cap</td><td><span class="badge b-pass">WITHIN CAP</span></td></tr>
@@ -223,7 +223,7 @@
     </div>
     <div class="card" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18);">
       <h3 style="color:#fff;">If we hold</h3>
-      <p>The same $50k+ contracts are protected. AI failures become memes and spread like wildfire, and the reputation damage could be greater than the contract cost. No lost-revenue figure is claimed for the delay.</p>
+      <p>The same $50k+ contracts are protected. A wrong figure forwarded among executives spreads faster than a rollout can contain, and the reputation damage and churn could outweigh the contract cost. No lost-revenue figure is claimed for the delay.</p>
     </div>
   </div>
   <p style="font-size:20px; color:#fff;">Go/no-go review two weeks after approval: <strong>October 23, 2026</strong> if approved on time. We start the rollout only if all three ship conditions are met. If not, we escalate rather than ship.</p>
