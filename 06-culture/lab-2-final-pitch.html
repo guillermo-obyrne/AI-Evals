@@ -79,11 +79,11 @@
   <h1 style="max-width:1000px; margin-bottom:28px;">Hold Ascend IQ for one sprint.</h1>
   <p style="font-size:24px; line-height:1.45; max-width:1010px; color:#fff;">It can still present a stale price, like $49 instead of $59, as verified intelligence. One screenshot of that can tarnish the brand and put $50k+ contracts at risk faster than a staged rollout can contain it.</p>
   <div style="margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;">
-    <span class="pill">0 stale prices on a ≥30-case golden set</span>
+    <span class="pill">0 stale prices on a ≥30-case first regression set</span>
     <span class="pill">Judge κ ≥ 0.60</span>
     <span class="pill">False-block ≤ 5%</span>
   </div>
-  <p style="margin-top:22px; font-size:17px;">Then we begin the staged 5% → 25% → 100% rollout. Go/no-go review: October 23, 2026.</p>
+  <p style="margin-top:22px; font-size:17px;">The sprint ships the pricing-scope gate, which blocks stale prices rather than repairing the model. Then the staged 5% → 25% → 100% rollout begins. Go/no-go review: October 23, 2026.</p>
   <div class="foot"><span>Guillermo O'Byrne · AI Evals Cohort · October 5, 2026</span><span>1 / 8</span></div>
 </section>
 
@@ -105,7 +105,7 @@
   <div class="kicker">M2 · Failure taxonomy</div>
   <h2>Hallucination is where Ascend IQ fails most: 10 of 20 audited rows.</h2>
   <div class="grid g2" style="grid-template-columns: 240px 1fr; align-items:start;">
-    <div class="card"><div class="big">10/20</div><p>audited rows carried a hallucination failure (stale, unsupported or contradicted facts). 12 failures confirmed overall.</p></div>
+    <div class="card"><div class="big">10/20</div><p>audited rows carried a hallucination failure (stale, unsupported or contradicted facts). Small sample; rough 95% interval 27%–73%.</p></div>
     <div class="card" style="padding:8px 14px;">
       <table>
         <tr><th>#</th><th>Failure</th><th>Severity</th></tr>
@@ -115,7 +115,7 @@
       </table>
     </div>
   </div>
-  <div class="note">Example: the agent quoted $49 for the Enterprise plan; the current price is $59. A Fortune 500 leader repeating that number to their own leadership puts a $50k+ contract at risk. The audit is a 20-row sample, not a measured production rate.</div>
+  <div class="note">Example: the agent quoted $49 for the Enterprise plan; the current price is $59. A Fortune 500 leader repeating that number to their own leadership puts a $50k+ contract at risk. The audit is a 20-row sample, not a measured production rate. The Hard gate is 0%, so even the low end of the interval fails it, and $49 vs $59 is a confirmed counterexample.</div>
   <div class="foot"><span>Source: 02-failure-discovery/audit-log.md, failure-taxonomy.md</span><span>3 / 8</span></div>
 </section>
 
@@ -157,19 +157,21 @@
     </div>
     <div class="card">
       <h3>Per-dimension CI gate</h3>
-      <p>Blocking: faithfulness (floor 95), task completion (90), safety (98). Warn-only: tool selection, latency, cost. Replayed on a frozen golden set of at least 30 cases.</p>
-      <h3 style="margin-top:14px;">Staged rollout</h3>
-      <p>5% → 25% → 100%, advancing only while Soft gates hold.</p>
+      <p>Blocking: faithfulness (floor 95), task completion (90), safety (98). Warn-only: tool selection, latency, cost. Replayed on a frozen set of 30+ cases: a floor, not proof (0 failures in 30 supports only a rate under ~10%).</p>
+      <h3 style="margin-top:10px;">Staged rollout</h3>
+      <p>5% → 25% → 100% while Soft gates hold; real cases grow the set toward hundreds.</p>
+      <h3 style="margin-top:10px;">How the sprint gets to 0%</h3>
+      <p>A pricing-scope gate blocks stale prices before render; it blocks, not repairs.</p>
     </div>
   </div>
-  <div class="note">A staged rollout limits who sees a miss. It does not stop a screenshot of one wrong price from spreading, which is why the Hard gate has to pass first.</div>
+  <div class="note">A staged rollout limits who sees a miss, not whether a screenshot spreads, so the Hard gate passes first.</div>
   <div class="foot"><span>Source: 04-eval-gates/lab-1-gate-map.md, lab-2-launch-strategy.md, lab-ci-gate-policy.md</span><span>5 / 8</span></div>
 </section>
 
 <!-- 6 · BUDGET -->
 <section class="slide">
   <div class="kicker">M5 · Scale and budget</div>
-  <h2>The eval plan fits the budget: $163,750 of the $200K quarterly cap.</h2>
+  <h2>The eval plan fits the budget: $163,750 planned of the $200K quarterly cap.</h2>
   <div class="grid g2" style="grid-template-columns: 1.35fr 1fr; align-items:start;">
     <div class="card" style="padding:8px 14px;">
       <table>
@@ -187,24 +189,24 @@
       <p style="margin-top:10px; font-size:15px;">Hallucination ⚠️ · Bias ❌ · Latency ✅ · Toxicity ❌ · Drift ⚠️. Its hallucination method is reused from Ascend IQ and has not been run on that product.</p>
     </div>
   </div>
-  <div class="note">2 of 3 Level-3 slots used, $36,250 headroom. Bias is a risk acceptance: 0 of 20 audited rows had a fairness failure.</div>
+  <div class="note">Planned allocation, not reported spend. 2 of 3 Level-3 slots, $36,250 headroom. Bias is a risk acceptance: 0 of 20 audited rows had a fairness failure.</div>
   <div class="foot"><span>Source: 05-scale/lab-2-budget-crisis.md, lab-1-coverage-matrix.md</span><span>6 / 8</span></div>
 </section>
 
 <!-- 7 · EVIDENCE -->
 <section class="slide cream">
   <div class="kicker">Evidence against the gates</div>
-  <h2>Where we stand today: two gates failed and three are not yet measured.</h2>
+  <h2>Where we stand today: two gates failed and three are not yet met or measured.</h2>
   <div class="card" style="padding:8px 14px;">
     <table>
       <tr><th>Metric</th><th>Result</th><th>Gate</th><th>Status</th></tr>
-      <tr><td>Hallucination in audit</td><td>10/20 rows</td><td>0% stale or contradicted rendered</td><td><span class="badge b-fail">FAIL</span></td></tr>
+      <tr><td>Hallucination in audit</td><td>10/20 rows (small sample; rough 95% interval 27%–73%)</td><td>0% stale or contradicted rendered</td><td><span class="badge b-fail">FAIL</span></td></tr>
       <tr><td>Judge Cohen's κ (real judge)</td><td>0.33</td><td>≥ 0.60</td><td><span class="badge b-fail">FAIL</span></td></tr>
-      <tr><td>Golden pricing set</td><td>Not built</td><td>≥ 30 cases incl. $49 vs $59</td><td><span class="badge b-warn">NOT MET</span></td></tr>
+      <tr><td>First golden pricing set</td><td>Not built</td><td>≥ 30 cases incl. $49 vs $59 (a floor, not proof)</td><td><span class="badge b-warn">NOT MET</span></td></tr>
       <tr><td>Pricing gate on golden set</td><td>Not run</td><td>0 stale; false-block ≤ 5%</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
       <tr><td>p95 latency</td><td>Not measured</td><td>≤ 4.0s (target 2.0s)</td><td><span class="badge b-warn">NOT MEASURED</span></td></tr>
       <tr><td>Bias</td><td>0/20 fairness failures</td><td>Accepted risk, no gate</td><td><span class="badge b-blue">ACCEPTED</span></td></tr>
-      <tr><td>Eval budget</td><td>$163,750</td><td>≤ $200K</td><td><span class="badge b-pass">PASS</span></td></tr>
+      <tr><td>Planned eval allocation</td><td>$163,750 (plan)</td><td>≤ $200K cap</td><td><span class="badge b-pass">WITHIN CAP</span></td></tr>
     </table>
   </div>
   <div class="foot"><span>Sources: M2 audit-log · M3 judge calibration and spec · M4 release criteria · M5 budget</span><span>7 / 8</span></div>
